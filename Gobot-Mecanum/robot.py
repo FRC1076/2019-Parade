@@ -1,15 +1,15 @@
 import wpilib
 import wpilib.drive
 import ctre
-from wpilib.interfaces import GenericHID
+import robotmap
 
 class Robot(wpilib.TimedRobot):
 
     def robotInit(self):
-        front_left_motor = wpilib.Talon(3) #TODO: Give correct values
-        back_left_motor = wpilib.Talon(4) #TODO: Give correct values
-        front_right_motor = wpilib.Talon(1) #TODO: Give correct values
-        back_right_motor = wpilib.Talon(2) #TODO: Give correct values
+        front_left_motor = robotmap.motor(robotmap.mecanum['front_left_motor']) #TODO: Give correct values
+        back_left_motor = robotmap.motor(robotmap.mecanum['back_left_motor']) #TODO: Give correct values
+        front_right_motor = robotmap.motor(robotmap.mecanum['front_right_motor']) #TODO: Give correct values
+        back_right_motor = robotmap.motor(robotmap.mecanum['back_left_motor']) #TODO: Give correct values
 
         front_left_motor.setInverted(True)
         back_left_motor.setInverted(True)
@@ -33,8 +33,18 @@ class Robot(wpilib.TimedRobot):
 
         
         self.drive.driveCartesian(
-            self.lstick.getX(), self.lstick.getY(), self.rstick.getX(), self.gyro.getAngle()
+            self.lstick.getX, self.lstick.getY(), self.rstick.getX(), self.gyro.getAngle()
         )
+
+    def deadzone(val, deadzone):
+        if abs(val) < deadzone:
+            return 0
+        elif val < (0):
+            x = ((abs(val) - deadzone)/(1-deadzone))
+            return (-x)
+        else:
+            x = ((val - deadzone)/(1-deadzone))
+            return (x)
         
 if __name__ == "__main__":
     wpilib.run(Robot,physics_enabled=True)
