@@ -66,3 +66,4 @@ class PhysicsEngine(object):
 
 		# Linear motion for encoder
         hal_data['encoder'][0]['value'] = self.motion.compute(l_motor, tm_diff)
+
