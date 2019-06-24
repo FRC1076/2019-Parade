@@ -18,7 +18,7 @@ class Robot(wpilib.TimedRobot):
         self.drive = wpilib.drive.MecanumDrive(
             front_left_motor,
             back_left_motor,
-            front_left_motor,
+            front_right_motor,
             back_right_motor
         )
 
