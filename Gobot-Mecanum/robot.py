@@ -9,10 +9,10 @@ class Robot(wpilib.SampleRobot):
         front_left_motor = wpilib.Talon(robotmap.mecanum['front_left_motor'])  
         back_left_motor = wpilib.Talon(robotmap.mecanum['back_left_motor'])  
         front_right_motor = wpilib.Talon(robotmap.mecanum['front_right_motor'])  
-        back_right_motor = wpilib.Talon(robotmap.mecanum['back_left_motor'])  
+        back_right_motor = wpilib.Talon(robotmap.mecanum['back_right_motor'])  
 
         front_left_motor.setInverted(True)
-        back_left_motor.setInverted(True)
+        #back_left_motor.setInverted(True)
 
 
         self.drive = wpilib.drive.MecanumDrive(
@@ -29,18 +29,28 @@ class Robot(wpilib.SampleRobot):
 
         self.gyro = wpilib.AnalogGyro(1)
 
-    def teleopInit(self):
-        self.xforward = 0
-        self.yforward = 0
+    #def teleopInit(self):
+    #    self.xforward = 0
+    #    self.yforward = 0
 
-    def teleopPeriodic(self):
 
+    def operatorControl(self):
         """Called when operation control mode is enabled"""
 
-        
-        self.drive.driveCartesian(
-            self.lstick.getX(), self.lstick.getY(), self.rstick.getX(), self.gyro.getAngle()
-        )
+        while self.isOperatorControl() and self.isEnabled():
+            self.drive.driveCartesian(
+                self.lstick.getX(), self.lstick.getY(), self.rstick.getX(), 0
+            )
+
+            wpilib.Timer.delay(0.04)
+    #def teleopPeriodic(self):
+    #
+    #    """Called when operation control mode is enabled"""
+    #
+    #    
+    #    self.drive.driveCartesian(
+    #        self.lstick.getX(), self.lstick.getY(), self.rstick.getX(), self.gyro.getAngle()
+    #    )
 
     
         
