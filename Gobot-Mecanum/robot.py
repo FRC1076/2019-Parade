@@ -2,7 +2,7 @@ import wpilib
 import wpilib.drive
 import ctre
 import robotmap
-
+from wpilib.interfaces import GenericHID
 
 
 RIGHT_HAND = GenericHID.Hand.kRight
