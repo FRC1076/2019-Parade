@@ -18,7 +18,7 @@ class Robot(wpilib.TimedRobot):
         self.drive = wpilib.drive.MecanumDrive(
             front_left_motor,
             back_left_motor,
-            front_left_motor,
+            front_right_motor,
             back_right_motor
         )
 
@@ -56,7 +56,9 @@ class Robot(wpilib.TimedRobot):
             rspeed = self.lstick.getY()
             rotate = self.rstick.getX()
         else:
-            rotate, lspeed, rspeed = 0
+            rotate = 0
+            lspeed = 0
+            rspeed = 0
         
         self.drive.driveCartesian(
             lspeed, rspeed, rotate, self.gyro.getAngle()
