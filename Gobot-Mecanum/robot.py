@@ -56,7 +56,9 @@ class Robot(wpilib.TimedRobot):
             rspeed = self.lstick.getY()
             rotate = self.rstick.getX()
         else:
-            rotate, lspeed, rspeed = 0
+            rotate = 0
+            lspeed = 0
+            rspeed = 0
         
         self.drive.driveCartesian(
             lspeed, rspeed, rotate, self.gyro.getAngle()
