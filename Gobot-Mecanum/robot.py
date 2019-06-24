@@ -24,8 +24,8 @@ class Robot(wpilib.TimedRobot):
 
         self.drive.setExpiration(0.1)
         
-        self.lstick = wpilib.Joystick(0)
-        self.rstick = wpilib.Joystick(1)
+        self.lstick = wpilib.XboxController(0)
+        self.rstick = wpilib.XboxController(1)
 
         self.gyro = wpilib.AnalogGyro(1)
 
@@ -48,10 +48,18 @@ class Robot(wpilib.TimedRobot):
     def teleopPeriodic(self):
     
         """Called when operation control mode is enabled"""
-    
+
+        
+
+        if not self.rstick.getXButton() or not self.lstick.getXButton():
+            lspeed = self.lstick.getX()
+            rspeed = self.lstick.getY()
+            rotate = self.rstick.getX()
+        else:
+            rotate, lspeed, rspeed = 0
         
         self.drive.driveCartesian(
-            self.lstick.getX(), self.lstick.getY(), self.rstick.getX(), self.gyro.getAngle()
+            lspeed, rspeed, rotate, self.gyro.getAngle()
         )
 
     
