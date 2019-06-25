@@ -3,8 +3,8 @@ import ctre
 from wpilib.interfaces import GenericHID
 from wpilib.drive import DifferentialDrive
 
-LEFT = GenericHID.Hand.kLeft
-RIGHT = GenericHID.Hand.kRight
+LEFT_HAND = GenericHID.Hand.kLeft
+RIGHT_HAND = GenericHID.Hand.kRight
 
 class Robot(wpilib.TimedRobot):
     def robotInit(self):
@@ -29,8 +29,9 @@ class Robot(wpilib.TimedRobot):
 
     def teleopPeriodic(self):
         #TODO: add a deadzone to not kill the driver
-        leftSpeed = self.controller.getY(hand=LEFT)
-        rightSpeed = self.controller.getY(hand=RIGHT)
+        #TODO: figure out what values should be negative
+        leftSpeed = self.controller.getY(LEFT_HAND)
+        rightSpeed = self.controller.getRawAxis(3)
         
         if self.controller.getXButton() == True:
             leftSpeed = 0

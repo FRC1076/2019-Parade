@@ -2,6 +2,12 @@ import wpilib
 import wpilib.drive
 import ctre
 import robotmap
+from wpilib.interfaces import GenericHID
+
+
+RIGHT_HAND = GenericHID.Hand.kRight
+LEFT_HAND = GenericHID.Hand.kLeft
+
 
 class Robot(wpilib.TimedRobot):
 
@@ -18,7 +24,7 @@ class Robot(wpilib.TimedRobot):
         self.drive = wpilib.drive.MecanumDrive(
             front_left_motor,
             back_left_motor,
-            front_left_motor,
+            front_right_motor,
             back_right_motor
         )
 
@@ -52,11 +58,13 @@ class Robot(wpilib.TimedRobot):
         
 
         if not self.rstick.getXButton() or not self.lstick.getXButton():
-            lspeed = self.lstick.getX()
-            rspeed = self.lstick.getY()
-            rotate = self.rstick.getX()
+            lspeed = self.lstick.getX(LEFT_HAND)
+            rspeed = self.lstick.getY(LEFT_HAND)
+            rotate = self.lstick.getX(RIGHT_HAND)
         else:
-            rotate, lspeed, rspeed = 0
+            rotate = 0
+            lspeed = 0
+            rspeed = 0
         
         self.drive.driveCartesian(
             lspeed, rspeed, rotate, self.gyro.getAngle()
