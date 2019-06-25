@@ -30,8 +30,7 @@ class Robot(wpilib.TimedRobot):
 
         self.drive.setExpiration(0.1)
         
-        self.lstick = wpilib.XboxController(0)
-        self.rstick = wpilib.XboxController(1)
+        self.stick = wpilib.XboxController(0)
 
         self.gyro = wpilib.AnalogGyro(1)
 
@@ -57,10 +56,10 @@ class Robot(wpilib.TimedRobot):
 
         
 
-        if not self.rstick.getXButton() or not self.lstick.getXButton():
-            lspeed = self.lstick.getX(LEFT_HAND)
-            rspeed = self.lstick.getY(LEFT_HAND)
-            rotate = self.lstick.getX(RIGHT_HAND)
+        if not self.stick.getXButton() or not self.stick.getXButton():
+            lspeed = self.stick.getX(LEFT_HAND)
+            rspeed = self.stick.getY(LEFT_HAND)
+            rotate = self.stick.getX(RIGHT_HAND)
         else:
             rotate = 0
             lspeed = 0
