@@ -33,7 +33,7 @@ class Robot(wpilib.TimedRobot):
         leftSpeed = self.controller.getY(LEFT_HAND)
         rightSpeed = self.controller.getRawAxis(3)
         
-        if self.controller.getXButton() == True:
+        if self.controller.getXButton():
             leftSpeed = 0
             rightSpeed = 0
 
