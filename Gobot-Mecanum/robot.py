@@ -55,11 +55,11 @@ class Robot(wpilib.TimedRobot):
     
         """Called when operation control mode is enabled"""
 
-        
+       
 
         if not self.rstick.getXButton() or not self.lstick.getXButton():
-            lspeed = self.lstick.getX(LEFT_HAND)
-            rspeed = self.lstick.getY(LEFT_HAND)
+            lspeed = deadzone(self.lstick.getX(LEFT_HAND), 0.2) 
+            rspeed = deadzone(self.lstick.getY(LEFT_HAND), 0.2)
             rotate = self.lstick.getX(RIGHT_HAND)
         else:
             rotate = 0
@@ -70,6 +70,15 @@ class Robot(wpilib.TimedRobot):
             lspeed, rspeed, rotate, self.gyro.getAngle()
         )
 
+def deadzone(val, deadzone):
+    if abs(val) < deadzone:
+        return 0
+    elif val < (0):
+        x = ((abs(val) - deadzone)/(1-deadzone))
+        return (-x)
+    else:
+        x = ((val - deadzone)/(1-deadzone))
+        return (x)
     
         
 if __name__ == "__main__":

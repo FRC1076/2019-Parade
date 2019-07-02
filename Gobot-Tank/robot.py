@@ -30,14 +30,24 @@ class Robot(wpilib.TimedRobot):
     def teleopPeriodic(self):
         #TODO: add a deadzone to not kill the driver
         #TODO: figure out what values should be negative
-        leftSpeed = self.controller.getY(LEFT_HAND)
-        rightSpeed = self.controller.getRawAxis(3)
+        leftSpeed = deadzone(self.controller.getY(LEFT_HAND), 0.2)
+        rightSpeed = deadzone(self.controller.getRawAxis(3), 0.2)
         
         if self.controller.getXButton():
             leftSpeed = 0
             rightSpeed = 0
 
         self.drivetrain.tankDrive(leftSpeed, rightSpeed)
+
+def deadzone(val, deadzone):
+    if abs(val) < deadzone:
+        return 0
+    elif val < (0):
+        x = ((abs(val) - deadzone)/(1-deadzone))
+        return (-x)
+    else:
+        x = ((val - deadzone)/(1-deadzone))
+        return (x)
 
 if __name__ == "__main__":
 	wpilib.run(Robot, physics_enabled = True)
