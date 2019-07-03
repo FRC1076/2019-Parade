@@ -15,6 +15,9 @@ GATHER_SPEED = 1.0
 SPIT_SPEED = -1.0
 STOP_SPEED = 0.0
 
+LEFT_HAND = GenericHID.Hand.kLeft
+RIGHT_HAND = GenericHID.Hand.kRight
+
 class MyRobot(wpilib.TimedRobot):
     def robotInit(self):
         """Robot initialization function"""
@@ -78,10 +81,18 @@ class MyRobot(wpilib.TimedRobot):
         self.ballManipulator.set(ballMotorSetPoint)
 
         """Runs the motors with tank steering"""
-        right = self.driver.getY(self.RIGHT)
-        left = self.driver.getY(self.LEFT)
+        #right = self.driver.getY(self.RIGHT)
+        #left = self.driver.getY(self.LEFT)
 
-        self.myRobot.tankDrive(right, left)
+        #self.myRobot.tankDrive(right, left)
+        forward = -self.driver.getRawAxis(5)
+        rotation_value = rotation_value = self.driver.getX(LEFT_HAND)
+        
+        forward = deadzone(forward, 0.2)
+
+        self.myRobot.arcadeDrive(forward, rotation_value)
+
+
         center_speed = self.driver.getX(self.RIGHT)
 
         self.setCenters(self.deadzone(center_speed, self.DEADZONE))
@@ -110,6 +121,16 @@ class BallManipulator:
         and spit, respectively.
         """
         self.motor.set(setValue)
+
+def deadzone(val, deadzone):
+    if abs(val) < deadzone:
+        return 0
+    elif val < (0):
+        x = ((abs(val) - deadzone)/(1-deadzone))
+        return (-x)
+    else:
+        x = ((val - deadzone)/(1-deadzone))
+        return (x)
 
 if __name__ == "__main__":
     wpilib.run(MyRobot)
