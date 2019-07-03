@@ -3,19 +3,21 @@ import ctre
 from wpilib.drive import DifferentialDrive
 from wpilib.interfaces import GenericHID
 
+#MOTOR PORTS
+LEFT = 1
+RIGHT = 3
+CENTER1 = 2
+CENTER2 = 4
+
 #BALL MANIPULATOR
 BALL_MANIP_ID = 5
 GATHER_SPEED = 1.0
 SPIT_SPEED = -1.0
 STOP_SPEED = 0.0
 
-class MyRobot(wpilib.IterativeRobot):
+class MyRobot(wpilib.TimedRobot):
     def robotInit(self):
         """Robot initialization function"""
-        LEFT = 1
-        RIGHT = 2
-        CENTER1 = 3
-        CENTER2 = 4
         # object that handles basic drive operations
         self.leftVictor = ctre.WPI_VictorSPX(LEFT)
         self.rightVictor = ctre.WPI_VictorSPX(RIGHT)
