@@ -60,8 +60,8 @@ class MyRobot(wpilib.TimedRobot):
         self.myRobot.setSafetyEnabled(True)
 
     def setCenters(self, speed_value):
-        self.center1.set(speed_value)
-        self.center2.set(-speed_value)
+        self.center1.set(-speed_value)
+        self.center2.set(speed_value)
 
     def deadzone(self, val, deadzone):
         if abs(val) < deadzone:
